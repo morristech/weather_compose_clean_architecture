@@ -5,7 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -146,7 +146,12 @@ fun ListWeatherDay(
         modifier = modifier,
         contentPadding = PaddingValues(bottom = paddingBottom + 10.dp),
     ) {
-        itemsIndexed(items = list) { _, item ->
+        items(
+            items = list,
+            key = { item ->
+                item.dateTime
+            },
+        ) { item ->
             WeatherDayItem(
                 modifier = Modifier.fillMaxWidth(),
                 item = item,
@@ -205,7 +210,6 @@ fun WeatherDayItem(
                         modifier = Modifier.padding(bottom = 5.dp),
                         style = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.secondary),
                     )
-
 
                     Text(
                         text = stringResource(id = R.string.degrees_c, item.minTemp.toString()),
